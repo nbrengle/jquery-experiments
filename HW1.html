@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="root-container">
+        <div class="header">
+            <button id="reverse">
+                REVERSE
+            </button>
+            <button id="remove-symbols-numbers">
+                REMOVE SYMBOLS & NUMBERS
+            </button>
+            <button id="sort-alphabetically">
+                SORT ALPHABETICALLLY
+            </button>
+            <button id='toggle-color'>
+                TOGGLE COLOR
+            </button>
+            <button id='random-color'>
+                RANDOM COLOR
+            </button>
+            <button id='convert-inline'>
+                CONVERT TO INLINE
+            </button>
+        </div>
+        <div class="main">
+            <div class="startups-container">
+
+            </div>
+
+        </div>
+        <div class="footer">
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<style>
+    .root-container {
+        position: relative;
+    }
+
+    .root-container .header {
+        position: relative;
+    }
+
+    .root-container .main {
+        position: relative;
+    }
+
+    .root-container .footer {
+        position: relative;
+    }
+
+    .startups-container {
+        background-color: gray;
+        overflow: hidden;
+    }
+
+    .red {
+        background-color: red;
+    }
+
+    .blue {
+        background-color: blue;
+    }
+
+    .gold {
+        background-color: gold;
+    }
+
+    div.inline {
+        float: left;
+        padding: .25em;
+    }
+</style>
+
+<script>
+    var colors = ['red', 'blue', 'gold'];
+    var chicagoStartupsHTML = [];
+    var chicagoStartups = [
+        '  Interior   Define  ',
+        'Classkick',
+        'teaBOT  .$',
+        'Pritzker Group Venture Capital',
+        'Teln!yx !!',
+        'ShipBob ~~$$$',
+        'Hologram',
+        'Tovala    ',
+        '    MANOR',
+        'ShuttleCloud 999987',
+        'gtrot @@@@@',
+        'DealsGoRound ****',
+        ' Groovebug',
+        'Stage$$$Bloc',
+        'Shiftgig',
+        'ParkWhiz'
+    ];
+    $(document).ready(function () {
+        $.each(chicagoStartups, function (index, startupName) {
+            chicagoStartupsHTML.push('<div>' + startupName + '</div>');
+        });
+        $(".startups-container").html(chicagoStartupsHTML.join(""));
+    });
+
+    //HOMEWORK 1 PROBLEMS START
+    // 1.CREATE A FUNCTION THAT REVERSES THE LIST OF STARTUPS ON CLICK OF THE REVERSE BUTTON
+    $("#reverse").click( function (event) {
+        $(".startups-container").append(
+            $( "div", ".startups-container")
+            .get().reverse()
+        );
+    });
+    // 2.CREATE A FUNCTION THAT REMOVES ALL SYMBOLS AND NUMBERS FROM COMPANY NAMES ON CLICK OF REMOVE SYMBOLS & NUMBERS BUTTON
+    //   Stage$$$Bloc => StageBloc
+    $("#remove-symbols-numbers").click( function (event) {
+        //replace(/[^a-z\s]/gi, '')
+        $(".startups-container").append(
+            $( "div", ".startups-container").map(function (index) {
+                this.innerHTML = $(this).html().replace(/[^a-z\s]/gi, '');
+            })
+        );
+    });
+    // 3.CREATE A FUNCTION THAT SORTS STARTUPS IN ALPHABETICAL ORDER ON CLICK OF THE SORT BUTTON
+    $("#sort-alphabetically").click(function (event) {
+        $(".startups-container").append(
+            $("div", ".startups-container").sort(function (a, b) {
+                return ($(b).text().trim().toUpperCase()) < ($(a).text().trim().toUpperCase()) ? 1 : -1;
+            })
+        )
+    });
+    // 4.CREATE A FUNCTION THAT TOGGLES THE BACKGROUND COLOR UPON CLICK OF THE TOGGLE COLOR BUTTON
+    $("#toggle-color").click(function (event) {
+        var current = $(".startups-container").css('background-color');
+        console.log(current);
+        $(".startups-container").toggleClass("blue");
+    });
+    // 5.CREATE A FUNCTION THAT RANDOMLY SELECTS A COLOR CLASS AND APPLIES IT TO EACH COMPANY NAME WHEN THE COLOR BUTTON IS CLICKED
+    $("#random-color").click(function (event) {
+        $.each(colors, function (index, color) {
+            $(".startups-container").removeClass(color);
+        });
+        $(".startups-container").addClass(colors[Math.floor(Math.random() * 3)])
+    });
+    // 6.CREATE A FUNCTION THAT DISPLAYS STARTS AS INLINE ELEMENTS ON CLICK OF CONVERT TO INLINE BUTTON
+    //#convert-inline
+    $("#convert-inline").click(function (event) {
+        $(".startups-container").append(
+            $("div", ".startups-container").toggleClass("inline")
+        );
+    });
+    //HOMEWORK 1 PROBLEMS END
+
+</script>
